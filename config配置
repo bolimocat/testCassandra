@@ -1,0 +1,61 @@
+CREATE KEYSPACE my_ks WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
+
+
+
+Cassandra 配制 cassandra.yaml
+
+一、设置用户名和密码
+
+修改cassandra.yaml配置文件
+
+把默认的
+
+authenticator: AllowAllAuthenticator
+
+改成
+
+authenticator: PasswordAuthenticator
+
+ 
+
+如果你需要登陆进去以后查看修改权限之类，需要修改
+
+authorizer: AllowAllAuthorizer
+
+为
+
+authorizer: CassandraAuthorizer
+
+ 
+
+启动cassandra
+
+cql连接，cassandra是默认账户和密码
+
+./cqlsh -u cassandra -p cassandra ip port
+
+ 
+
+创建用户
+
+CREATE USER myusername WITH PASSWORD 'mypassword' SUPERUSER ;
+
+这里用户有两种，一个是superuser (超级用户)，一种是nosuperuser(普通用户)
+
+ 
+
+二、设置连接IP:
+
+rpc_address: 202.173.9.28
+
+ 
+
+三、设置完用户名，密码，IP后的登录方法
+
+ cqlsh 服务IP -u 用户名 -p 密码
+ cqlsh 202.173.9.28 -u knet -p abc123
+
+
+
+
+
